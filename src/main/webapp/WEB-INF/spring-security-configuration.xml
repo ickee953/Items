@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           https://www.springframework.org/schema/beans/spring-beans.xsd
+						   http://www.springframework.org/schema/security
+						   https://www.springframework.org/schema/security/spring-security-5.8.xsd">
+
+    <security:http pattern="/items/list" security="none"/>
+    <security:http pattern="/items/{id}" security="none"/>
+    <security:http pattern="/items/picture/{filename:.+}" security="none"/>
+    <security:http pattern="/items/{id}/view_cnt_inc" security="none"/>
+    <security:http pattern="/items/{id}/rate/{rating}" security="none"/>
+    <security:http pattern="/users/get_invite" security="none"/>
+    <security:http pattern="/users/confirm_code" security="none"/>
+    <security:http pattern="/users/update_password" security="none"/>
+
+    <security:http auto-config="true" use-expressions="true">
+        <security:intercept-url pattern="/header" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/footer" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/users/**" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/orders/**" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/items/**" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/settings/**" access="isAuthenticated()"/>
+
+        <security:form-login login-page="/login"
+                             login-processing-url="/security_check"
+                             default-target-url="/dashboard"
+                             username-parameter="username"
+                             password-parameter="password"/>
+
+        <security:logout logout-url="/logout" logout-success-url="/"/>
+        <security:access-denied-handler ref="customAccessDeniedHandler"/>
+        <!-- enable csrf protection -->
+        <security:csrf token-repository-ref="csrfTokenRepository"/>
+    </security:http>
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="customMongoSecurityService">
+            <security:password-encoder ref="bCryptPasswordEncoder"/>
+            <!--<security:password-encoder hash="sha-256">
+                <security:salt-source user-property="username"/>
+            </security:password-encoder>-->
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <bean id="customMongoSecurityService" class="com.online.items.core.service.CustomMongoSecurityService"/>
+    <bean name="customAccessDeniedHandler" class="com.online.items.core.CustomAccessDeniedHandler" />
+    <bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.CookieCsrfTokenRepository">
+        <property name="cookieHttpOnly" value="false" />
+    </bean>
+</beans>
