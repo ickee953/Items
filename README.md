@@ -1,4 +1,4 @@
-# items
+# Quick start
 
 1. Create new project from pom.xml<br>
 2. Execute maven target 'package'<br>
