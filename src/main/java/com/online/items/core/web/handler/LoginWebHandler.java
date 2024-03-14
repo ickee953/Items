@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class LoginWebHandler {
 
-    @Autowired
-    public CookieCsrfTokenRepository csrfTokenRepository;
+    //@Autowired
+    //public CookieCsrfTokenRepository csrfTokenRepository;
 
-    @RequestMapping("/login")
+    /*@RequestMapping("/login")
     public ModelAndView loginForm(
             HttpServletRequest request,
             @RequestParam(value = "error", required = false) String error,
@@ -48,6 +48,6 @@ public class LoginWebHandler {
         }
 
         return view;
-    }
+    }*/
 
 }

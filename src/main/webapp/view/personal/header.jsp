@@ -1,6 +1,6 @@
 <%@ page contentType="text/html"%>
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
@@ -65,7 +65,7 @@
             <li class="nav-item dropdown account-nav-item">
               <a class="nav-link lowercase" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">account_circle</i>
-                <sec:authentication property="principal.username"/>
+
                 <i class="material-icons">arrow_drop_down</i>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">

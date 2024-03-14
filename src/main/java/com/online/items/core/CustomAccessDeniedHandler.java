@@ -26,7 +26,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public static final Logger LOG
             = Logger.getLogger(CustomAccessDeniedHandler.class.getName());
 
-    @Override
+    /*@Override
     public void handle(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -41,5 +41,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         }
 
         response.sendRedirect(request.getContextPath() + "/login?error");
+    }*/
+
+    @Override
+    public void handle(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, jakarta.servlet.ServletException {
+
     }
 }

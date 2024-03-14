@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainWebHandler {
     private static Logger LOGGER = LoggerFactory.getLogger(MainWebHandler.class);
 
-    @RequestMapping
+    @GetMapping
     public ModelAndView get(){
         return new ModelAndView("redirect:/items");
     }
