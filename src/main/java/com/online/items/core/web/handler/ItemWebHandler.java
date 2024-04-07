@@ -8,6 +8,7 @@
 
 package com.online.items.core.web.handler;
 
+import com.mongodb.DuplicateKeyException;
 import com.online.items.core.domain.AbstractDocument;
 import com.online.items.core.domain.Item;
 import com.online.items.core.domain.ItemCategory;
@@ -21,7 +22,6 @@ import com.online.items.core.web.exception.UnknownIdentifierException;
 import com.online.items.core.web.model.ItemDetailsModel;
 import com.online.items.core.web.model.ItemListModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

@@ -8,7 +8,7 @@
    			http://www.springframework.org/schema/data/mongo
    			http://www.springframework.org/schema/data/mongo/spring-mongo-3.0.xsd">
 
-    <mongo:repositories base-package="com.online.booking.core.repository" />
+    <mongo:repositories base-package="com.online.items.core.repository" />
 
     <mongo:db-factory   id="mongoDbFactory"
                         connection-string="mongodb://${mongo.host.name}:${mongo.host.port}/${mongo.db.name}"/>

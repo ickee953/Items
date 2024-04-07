@@ -9,7 +9,6 @@
 package com.online.items.core.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.Assert;
@@ -84,7 +83,7 @@ public class Item extends AbstractDocument {
      * @param price must not be {@literal null} or less than or equal to zero.
      * @param description
      */
-    @PersistenceConstructor
+    //@PersistenceConstructor
     public Item(String title, BigDecimal price, String description, String descriptionShort) {
 
         Assert.hasText(title, "Name must not be null or empty!");

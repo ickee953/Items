@@ -82,7 +82,7 @@
                           </c:if>
                         </td>
                         <td style="width: 100%;">
-                          ${item.email}
+                          ${item.emailAddress}
                         </td>
                         <td class="td-actions text-right" style="float: right; width: 100px;">
                           <div>
