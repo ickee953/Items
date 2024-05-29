@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +24,7 @@ public class WebSecurityConfig {
         http
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/css/**", "/fonts/**", "/js/**", "/scss/**").permitAll()
+                        .requestMatchers("/img/**", "/css/**", "/fonts/**", "/js/**", "/scss/**").permitAll()
                         .requestMatchers("/header").hasAnyRole(Role.ROLE_ADMINISTRATOR, Role.ROLE_USER)
                         .requestMatchers("/footer").hasAnyRole(Role.ROLE_ADMINISTRATOR, Role.ROLE_USER)
                         .requestMatchers("/users/**").hasAnyRole(Role.ROLE_ADMINISTRATOR, Role.ROLE_USER)

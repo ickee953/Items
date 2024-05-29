@@ -12,8 +12,8 @@
     <link href="/css/material-icons.css" rel="stylesheet" />
     <script src="/js/core/jquery.min.js"></script>
     <!-- JCrop plugin -->
-    <link href="/css/jcrop.css'/>" rel="stylesheet">
-    <script src="/js/plugins/jcrop.js'/>"></script>
+    <link href="/css/jcrop.css" rel="stylesheet">
+    <script src="/js/plugins/jcrop.js"></script>
     <!-- Custom CSS Styles -->
     <link href="/css/custom-style.css" rel="stylesheet" />
 </head>
@@ -140,7 +140,7 @@
                                         </div>
                                     </div>
                                     <table id="items_table_view" class="table">
-                                        <c:forEach var="item" items="${users}">
+                                        <th:forEach var="item" items="${users}">
                                             <tr id="item_${item.id}">
                                                 <td>
                                                     <div class="form-check">
@@ -153,13 +153,13 @@
                                                     </div>
                                                 </td>
                                                 <td style="text-align: center;width: 50px; height: 50px;">
-                                                    <c:if test='${item.avatar == null}'>
+                                                    <th:if test='${item.avatar == null}'>
                                                         <i class="material-icons" style="vertical-align: middle;color: #a4acad52;">account_circle</i>
-                                                    </c:if>
-                                                    <c:if test='${item.avatar != null}'>
+                                                    </th:if>
+                                                    <th:if test='${item.avatar != null}'>
                                                         <img id="item_title_picture_${item.id}" style="width: 50px; height: 50px;"
                                                              class="rounded-circle ml-2 mr-2 mt-2 mb-2" src='${item.avatar}'/>
-                                                    </c:if>
+                                                    </th:if>
                                                 </td>
                                                 <td style="width: 100%;">
                                                     ${item.email}
@@ -181,7 +181,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
+                                        </th:forEach>
                                     </table>
                                 </div>
                             </div>
@@ -238,11 +238,11 @@
                                                 <br>
                                                 <input id="update_role_id" type="hidden" value="">
                                                 <div id="dialog_role_drop_down" class="dropdown-menu">
-                                                    <c:forEach var="role" items="${roles}" varStatus="index">
+                                                    <th:forEach var="role" items="${roles}" varStatus="index">
                                                         <a href="#" onclick='addUserRole(${role});' class="dropdown-item">
-                                                            <c:out value="${role.name}"/>
+                                                            <th:out value="${role.name}"/>
                                                         </a>
-                                                    </c:forEach>
+                                                    </th:forEach>
                                                 </div>
                                                 </input>
                                             </div>
