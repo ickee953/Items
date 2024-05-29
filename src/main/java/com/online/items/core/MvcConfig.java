@@ -12,7 +12,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 
-    @Bean
+    /*@Bean
     public ClassLoaderTemplateResolver secondaryTemplateResolver() {
         ClassLoaderTemplateResolver secondaryTemplateResolver = new ClassLoaderTemplateResolver();
         secondaryTemplateResolver.setPrefix("/view/");
@@ -23,7 +23,7 @@ public class MvcConfig implements WebMvcConfigurer {
         secondaryTemplateResolver.setCheckExistence(true);
 
         return secondaryTemplateResolver;
-    }
+    }*/
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
