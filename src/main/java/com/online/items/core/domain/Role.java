@@ -14,8 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document( collection = "role")
 public class Role extends AbstractDocument {
-    public final static String ROLE_USER            = "ROLE_USER";
-    public final static String ROLE_ADMINISTRATOR   = "ROLE_ADMINISTRATOR";
+    public final static String ROLE_USER            = "USER";
+    public final static String ROLE_ADMINISTRATOR   = "ADMINISTRATOR";
 
     @Indexed(unique = true)
     private String name;
