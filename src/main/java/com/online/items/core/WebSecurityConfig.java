@@ -1,12 +1,12 @@
 package com.online.items.core;
 
 import com.online.items.core.domain.Role;
+import com.online.items.core.service.CustomMongoSecurityService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -42,29 +43,24 @@ public class WebSecurityConfig {
                 )
                 .userDetailsService(getUserDetailsService())
                 .formLogin((form) -> form
-                        .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/success")
-                        .failureForwardUrl("/login?error")
+                        .loginPage("/auth/login").permitAll()
+                        .defaultSuccessUrl("/auth/success")
+                        .failureForwardUrl("/auth/login?error")
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout((logout) -> {
+                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"));
+                    logout.invalidateHttpSession(true);
+                    logout.clearAuthentication(true);
+                    logout.deleteCookies("JSESSIONID");
+                    logout.logoutSuccessUrl("/auth/login");
+                });
 
         return http.build();
     }
 
     @Bean
     public UserDetailsService getUserDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("admin")
-                        .password(passwordEncoder().encode("123"))
-                        .roles(Role.ROLE_ADMINISTRATOR)
-                        .build(),
-                User.builder()
-                        .username("user")
-                        .password(passwordEncoder().encode("password"))
-                        .roles(Role.ROLE_USER)
-                        .build()
-        );
+        return new CustomMongoSecurityService();
     }
 
     @Bean
