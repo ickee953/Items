@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.3</version>
+    <version>3.3.0</version>
     <relativePath/>
   </parent>
   <groupId>ru.fl.app.items</groupId>
@@ -23,14 +23,14 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- Spring -->
-    <spring.version>5.3.27</spring.version>
+    <!--<spring.version>5.3.27</spring.version>
     <spring.security.version>5.8.3</spring.security.version>
     <spring.data.version>3.2.3</spring.data.version>
     <spring.data.mongodb.version>4.2.3</spring.data.mongodb.version>
     <mongodb.driver.version>4.6.1</mongodb.driver.version>
     <servlet.version>4.0.1</servlet.version>
     <jackson.version>2.12.3</jackson.version>
-    <jstl.version>1.2</jstl.version>
+    <jstl.version>1.2</jstl.version>-->
 
     <!-- Apache Commons IO -->
     <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->

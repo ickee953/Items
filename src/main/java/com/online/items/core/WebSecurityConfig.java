@@ -2,16 +2,17 @@ package com.online.items.core;
 
 import com.online.items.core.domain.Role;
 import com.online.items.core.service.CustomMongoSecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -19,6 +20,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    public CustomMongoSecurityService mongoSecurityService;
+
+    //@Autowired
+    //public CustomAuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -41,11 +48,13 @@ public class WebSecurityConfig {
                         .anyRequest()
                         .authenticated()
                 )
-                .userDetailsService(getUserDetailsService())
                 .formLogin((form) -> form
                         .loginPage("/auth/login").permitAll()
                         .defaultSuccessUrl("/auth/success")
                         .failureForwardUrl("/auth/login?error")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .loginProcessingUrl("/login")
                 )
                 .logout((logout) -> {
                     logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"));
@@ -58,14 +67,32 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    //@Autowired
+    //public void configureGlobal(AuthenticationManagerBuilder auth) {
+    //    auth.authenticationProvider(authenticationProvider);
+    //}
+
+    /*@Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+        authProvider.setUserDetailsService(mongoSecurityService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+
+        return authProvider;
+    }*/
+
     @Bean
-    public UserDetailsService getUserDetailsService() {
-        return new CustomMongoSecurityService();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(mongoSecurityService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(12);
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
