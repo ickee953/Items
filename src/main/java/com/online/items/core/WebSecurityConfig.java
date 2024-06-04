@@ -32,7 +32,7 @@ public class WebSecurityConfig {
         http
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/img/**", "/css/**", "/fonts/**", "/js/**", "/scss/**").permitAll()
+                        .requestMatchers("/continue", "/error", "/img/**", "/css/**", "/fonts/**", "/js/**", "/scss/**").permitAll()
                         .requestMatchers("/header").hasAnyRole(Role.ROLE_ADMINISTRATOR, Role.ROLE_USER)
                         .requestMatchers("/footer").hasAnyRole(Role.ROLE_ADMINISTRATOR, Role.ROLE_USER)
                         .requestMatchers("/users/**").hasAnyRole(Role.ROLE_ADMINISTRATOR, Role.ROLE_USER)
@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                         .loginProcessingUrl("/login")
                 )
                 .logout((logout) -> {
-                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"));
+                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"));
                     logout.invalidateHttpSession(true);
                     logout.clearAuthentication(true);
                     logout.deleteCookies("JSESSIONID");

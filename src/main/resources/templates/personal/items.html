@@ -72,7 +72,7 @@
                             <a class="dropdown-item" href="javascript: document.logoutForm.submit();">
                                 <i class="material-icons">directions_run</i>
                                 <div style="padding-right: 1.5rem;padding-left: 1.5rem;">Выход</div>
-                                <form name="logoutForm" action="<c:url value='/logout'/>" method="POST">
+                                <form name="logoutForm" th:action="@{/logout}" method="POST">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </form>
                             </a>

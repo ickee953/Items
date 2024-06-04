@@ -24,7 +24,7 @@ public class LoginWebHandler {
             HttpServletRequest request,
             @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout
-    ){
+    ) {
         ModelAndView view = new ModelAndView("login");
 
         if (error != null) {
@@ -36,6 +36,11 @@ public class LoginWebHandler {
         }
 
         return view;
+    }
+
+    @GetMapping("/success")
+    public ModelAndView authSuccess() {
+        return new ModelAndView("personal/success");
     }
 
 }
