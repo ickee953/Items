@@ -87,7 +87,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-1">
-                        <h4>Пользователи</h4>
+                        <h3>Пользователи</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -122,7 +122,7 @@
                                                 <i class="material-icons">refresh</i>
                                                 <div class="ripple-container"></div>
                                             </button>
-                                            <button id="refresh_btn"
+                                            <button id="more_btn"
                                                     onclick=""
                                                     class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
                                                     type="button">
@@ -140,48 +140,43 @@
                                         </div>
                                     </div>
                                     <table id="items_table_view" class="table">
-                                        <th:forEach var="item" items="${users}">
-                                            <tr id="item_${item.id}">
+
+                                            <tr th:each="item: ${users}" id="item_${item.id}">
                                                 <td>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input class="form-check-input" type="checkbox" value="${item.id}" onchange="">
+                                                            <input class="form-check-input" type="checkbox" th:value="${item.id}" onchange="">
                                                             <span class="form-check-sign">
                                 <span class="check"></span>
                               </span>
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td style="text-align: center;width: 50px; height: 50px;">
-                                                    <th:if test='${item.avatar == null}'>
-                                                        <i class="material-icons" style="vertical-align: middle;color: #a4acad52;">account_circle</i>
-                                                    </th:if>
-                                                    <th:if test='${item.avatar != null}'>
-                                                        <img id="item_title_picture_${item.id}" style="width: 50px; height: 50px;"
+                                                <td th:switch="${item.avatar}" style="text-align: center;width: 50px; height: 50px;">
+                                                        <i th:case="null" class="material-icons" style="vertical-align: middle;color: #a4acad52;">account_circle</i>
+                                                        <img th:case="*" id="item_title_picture_${item.id}" style="width: 50px; height: 50px;"
                                                              class="rounded-circle ml-2 mr-2 mt-2 mb-2" src='${item.avatar}'/>
-                                                    </th:if>
+
                                                 </td>
-                                                <td style="width: 100%;">
-                                                    ${item.email}
+                                                <td th:text="${item.emailAddress}" style="width: 100%;">
+
                                                 </td>
                                                 <td class="td-actions text-right" style="float: right; width: 100px;">
                                                     <div>
-                                                        <button type="button" rel="tooltip"
-                                                                title="Edit Item" class="btn btn-primary btn-round btn-link btn-sm"
+                                                        <button type="button" class="btn btn-primary btn-round btn-link btn-sm"
                                                                 onclick='clearUpdateItemDialog();fillUpdateItemDialog(${item});'
-                                                                data-toggle="modal" data-target="#update_item_dialog">
+                                                                  data-toggle="modal" data-target="#update_item_dialog">
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         <button type="button"
                                                                 onclick="confirmAndRemoveItem('${item.id}');"
-                                                                rel="tooltip" title="Remove"
                                                                 class="btn btn-danger btn-round btn-link btn-sm">
                                                             <i class="material-icons">close</i>
                                                         </button>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </th:forEach>
+
                                     </table>
                                 </div>
                             </div>
@@ -237,12 +232,10 @@
                                                 <div style="min-height: 55px;"></div>
                                                 <br>
                                                 <input id="update_role_id" type="hidden" value="">
-                                                <div id="dialog_role_drop_down" class="dropdown-menu">
-                                                    <th:forEach var="role" items="${roles}" varStatus="index">
-                                                        <a href="#" onclick='addUserRole(${role});' class="dropdown-item">
-                                                            <th:out value="${role.name}"/>
-                                                        </a>
-                                                    </th:forEach>
+                                                <div th:each="role: ${roles}" id="dialog_role_drop_down" class="dropdown-menu">
+                                                   <a href="#" onclick='addUserRole(${role});' class="dropdown-item">
+                                                       <th:out value="${role.name}"/>
+                                                   </a>
                                                 </div>
                                                 </input>
                                             </div>

@@ -85,6 +85,11 @@
 
         <div class="content">
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1">
+                        <h3>Продукция</h3>
+                    </div>
+                </div>
                 <button id="add_category_btn" class="btn btn-raised" data-toggle="modal" data-target="#update_category_dialog">
                     New category
                 </button>
@@ -102,34 +107,30 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p class="card-category">
-                        <ul class="nav nav-tabs" data-tabs="tabs">
-                            <th:forEach var="categoryItem" items="${categoryItems}">
+                        <ul th:each="categoryItem: ${categoryItems}" class="nav nav-tabs" data-tabs="tabs">
                                 <li id="${categoryItem.key.id}" class="nav-item">
                                     <a class="btn btn-sm btn-link" href="#tab_${categoryItem.key.id}" data-toggle="tab">
                                         <th:out value="${categoryItem.key.name}"/>
                                         <div class="ripple-container"></div>
                                     </a>
                                 </li>
-                            </th:forEach>
                         </ul>
                         </p>
                         <div id="items_table" class="card">
                             <div class="card-body" style="min-height: 300px;">
-                                <div class="tab-content">
-                                    <th:forEach var="categoryItem" items="${categoryItems}">
-                                        <div class="tab-pane" id="tab_${categoryItem.key.id}">
+                                <div th:each="categoryItem: ${categoryItems}" class="tab-content">
+                                        <div th:switch="${categoryItem.value.size()}" class="tab-pane" id="tab_${categoryItem.key.id}">
                                             <!-- table view content -->
                                             <th:choose>
-                                                <th:when test="${categoryItem.value.size() == 0}">
-                                                    <div class="row">
+                                                    <div th:case="0" class="row">
                                                         <div class="col">
                                                             <button onclick="deleteItemCategory('${categoryItem.key.id}');" class="btn btn-link">
                                                                 <i class="material-icons">delete_outline</i> Delete empty category
                                                             </button>
                                                         </div>
-                                                </th:when>
-                                                <th:otherwise>
-                                                    <div class="row">
+                                                    </div>
+
+                                                    <div th:case="*" class="row">
                                                         <div id="global_check_${categoryItem.key.id}"
                                                              class="col-md-1 form-check"
                                                              style="padding: 0px 24px;">
@@ -164,8 +165,7 @@
                                                                 <div class="ripple-container"></div>
                                                             </button>
                                                         </div>
-                                                </th:otherwise>
-                                            </th:choose>
+                                                    </div>
                                             <div class="col">
                                                 <button onclick='clearUpdateItemDialog();showUpdateItemDialog(${categoryItem.key});'
                                                         class="btn btn-fill btn-info"
@@ -225,7 +225,6 @@
                                             </th:forEach>
                                         </table>
                                 </div>
-                                </c:forEach>
                             </div>
                         </div>
                     </div>
