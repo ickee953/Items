@@ -147,8 +147,8 @@
                                                         <label class="form-check-label">
                                                             <input class="form-check-input" type="checkbox" th:value="${item.id}" onchange="">
                                                             <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
+                                                                <span class="check"></span>
+                                                            </span>
                                                         </label>
                                                     </div>
                                                 </td>
@@ -158,25 +158,23 @@
                                                              class="rounded-circle ml-2 mr-2 mt-2 mb-2" src='${item.avatar}'/>
 
                                                 </td>
-                                                <td th:text="${item.emailAddress}" style="width: 100%;">
-
+                                                <td th:text="${item.email}" style="width: 100%;">
                                                 </td>
                                                 <td class="td-actions text-right" style="float: right; width: 100px;">
                                                     <div>
                                                         <button type="button" class="btn btn-primary btn-round btn-link btn-sm"
-                                                                onclick='clearUpdateItemDialog();fillUpdateItemDialog(${item});'
-                                                                  data-toggle="modal" data-target="#update_item_dialog">
+                                                                th:onclick="clearUpdateItemDialog();fillUpdateItemDialog([[${item}]]);"
+                                                                data-toggle="modal" data-target="#update_item_dialog">
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         <button type="button"
-                                                                onclick="confirmAndRemoveItem('${item.id}');"
+                                                                th:onclick="confirmAndRemoveItem('[[${item.id}]]');"
                                                                 class="btn btn-danger btn-round btn-link btn-sm">
                                                             <i class="material-icons">close</i>
                                                         </button>
                                                     </div>
                                                 </td>
                                             </tr>
-
                                     </table>
                                 </div>
                             </div>
@@ -224,17 +222,15 @@
                                         <div class="col">
                                             <div id="update_user_auth" class="form-group">
                                                 <label class="">Права доступа:</label>
-                                                <span style="width: 65%;" class="float-right badge badge-pill badge-primary p-2 dropdown-toggle pointer"
-                                                      data-toggle="dropdown">
-                                добавить
-                          </span>
+                                                <span style="width: 65%;" class="float-right badge badge-pill badge-primary p-2 dropdown-toggle pointer" data-toggle="dropdown">
+                                                    добавить
+                                                </span>
                                                 <br>
                                                 <div style="min-height: 55px;"></div>
                                                 <br>
                                                 <input id="update_role_id" type="hidden" value="">
-                                                <div th:each="role: ${roles}" id="dialog_role_drop_down" class="dropdown-menu">
-                                                   <a href="#" onclick='addUserRole(${role});' class="dropdown-item">
-                                                       <th:out value="${role.name}"/>
+                                                <div id="dialog_role_drop_down" class="dropdown-menu">
+                                                   <a th:each="role: ${roles}" href="#" th:text="${role.name}" th:onclick='addUserRole([[${role}]]);' class="dropdown-item">
                                                    </a>
                                                 </div>
                                                 </input>

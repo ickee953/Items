@@ -121,7 +121,6 @@
                                 <div th:each="categoryItem: ${categoryItems}" class="tab-content">
                                         <div th:switch="${categoryItem.value.size()}" class="tab-pane" id="tab_${categoryItem.key.id}">
                                             <!-- table view content -->
-                                            <th:choose>
                                                     <div th:case="0" class="row">
                                                         <div class="col">
                                                             <button onclick="deleteItemCategory('${categoryItem.key.id}');" class="btn btn-link">
@@ -175,10 +174,9 @@
                                                     Add item
                                                 </button>
                                             </div>
-                                        </div>
+
                                         <table id="items_table_view" class="table">
-                                            <th:forEach var="item" items="${categoryItem.value}">
-                                                <tr id="item_${item.id}">
+                                                <tr th:each="item: ${categoryItem.value}" id="item_${item.id}">
                                                     <td>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
@@ -208,21 +206,20 @@
                                                     <td class="td-actions text-right">
                                                         <div style="text-align: right; width: 60px;">
                                                             <button type="button"
-                                                                    onclick='fillUpdateItemDialog(${item});'
+                                                                    onclick='fillUpdateItemDialog([[${item}]]);'
                                                                     class="btn btn-primary btn-round btn-link btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#update_item_dialog">
                                                                 <i class="material-icons">edit</i>
                                                             </button>
                                                             <button type="button"
-                                                                    onclick="confirmAndRemoveItem('${item.id}', '${categoryItem.key.id}');"
+                                                                    onclick="confirmAndRemoveItem('[[${item.id}]]', '[[${categoryItem.key.id}]]');"
                                                                     class="btn btn-danger btn-round btn-link btn-sm">
                                                                 <i class="material-icons">close</i>
                                                             </button>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            </th:forEach>
                                         </table>
                                 </div>
                             </div>

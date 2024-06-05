@@ -9,6 +9,8 @@
 package com.online.items.core.web.handler;
 
 import com.online.items.core.domain.*;
+import com.online.items.core.dto.RoleDto;
+import com.online.items.core.dto.UserDto;
 import com.online.items.core.utils.BindingError;
 import com.online.items.core.web.exception.ItemCreationException;
 import com.online.items.core.web.exception.UnknownIdentifierException;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.*;
 
@@ -52,8 +55,20 @@ public class UsersWebHandler {
         ModelAndView model = new ModelAndView("personal/users");
         //get all available authorities for user edit form
         Set<Role> roles = roleService.getAll();
-        model.addObject("roles", new ArrayList<>(roles));
-        model.addObject("users", users);
+        model.addObject("roles", roles.stream().map(role -> {
+            return new RoleDto(role.getId(), role.getName());
+        }).collect(Collectors.toList()));
+        model.addObject("users", users.stream().map(user->
+                new UserDto(
+                        user.getId(),
+                        user.getEmailAddress().toString(),
+                        user.getCreationDate(),
+                        user.getRoles().stream().map(role -> {
+                            return new RoleDto(role.getId(), role.getName());
+                        }).collect(Collectors.toSet()),
+                        user.getAvatar()
+                )
+        ).collect(Collectors.toList()));
 
         return model;
     }
