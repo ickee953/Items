@@ -325,13 +325,19 @@
     let button = $(this);
     button.prop("disabled", true);
 
+    let formData = new FormData();
+    formData.append("user", new Blob([JSON.stringify(item)], {
+        type: 'application/json'
+    }));
+
     $.ajax({
-      url: '${pageContext.request.contextPath}/users/update',
+      url: '/users/update',
       type: 'POST',
-      headers: { "${_csrf.headerName}" : "${_csrf.token}" },
-      data: JSON.stringify(item),
-      contentType: 'application/json',
+      headers: { "[[${_csrf.headerName}]]" : "[[${_csrf.token}]]" },
+      data: formData,
+      contentType: 'multipart/form-data',
       processData : false, // prevent jQuery from automatically
+      contentType : false, // transforming the data into a query string
       success: function (data) {
         button.prop("disabled", false);
 

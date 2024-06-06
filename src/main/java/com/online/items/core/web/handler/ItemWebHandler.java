@@ -56,9 +56,9 @@ public class ItemWebHandler {
 
         List<ItemCategory> categoriesSet = itemCategoryService.readAll();
 
-        categoriesSet.stream().forEach(cs -> {
+        categoriesSet.forEach(cs -> {
             List<Item> filteredItemList = items.stream().filter(
-                    i -> i.getCategory().equals(cs)
+                    i -> cs.equals(i.getCategory())
             ).collect(Collectors.toList());
 
             categoryItems.put( cs, filteredItemList );

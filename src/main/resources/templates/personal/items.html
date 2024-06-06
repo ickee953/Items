@@ -12,8 +12,8 @@
     <link href="/css/material-icons.css" rel="stylesheet" />
     <script src="/js/core/jquery.min.js"></script>
     <!-- JCrop plugin -->
-    <link href="/css/jcrop.css'/>" rel="stylesheet">
-    <script src="/js/plugins/jcrop.js'/>"></script>
+    <link href="/css/jcrop.css" rel="stylesheet">
+    <script src="/js/plugins/jcrop.js"></script>
     <!-- Custom CSS Styles -->
     <link href="/css/custom-style.css" rel="stylesheet" />
 </head>
@@ -108,9 +108,8 @@
                     <div class="col-md-12">
                         <p class="card-category">
                         <ul th:each="categoryItem: ${categoryItems}" class="nav nav-tabs" data-tabs="tabs">
-                                <li id="${categoryItem.key.id}" class="nav-item">
-                                    <a class="btn btn-sm btn-link" href="#tab_${categoryItem.key.id}" data-toggle="tab">
-                                        <th:out value="${categoryItem.key.name}"/>
+                                <li id="'[[${categoryItem.key.id}]]'" class="nav-item">
+                                    <a th:text="${categoryItem.key.name}" class="btn btn-sm btn-link" th:href="@{#tab_{id}(id=${categoryItem.key.id})}" data-toggle="tab">
                                         <div class="ripple-container"></div>
                                     </a>
                                 </li>
@@ -135,15 +134,15 @@
                                                              style="padding: 0px 24px;">
                                                             <label class="form-check-label">
                                                                 <input class="form-check-input" type="checkbox" value=""
-                                                                       onchange="selectAllItems('${categoryItem.key.id}')"/>
+                                                                       onchange="selectAllItems('[[${categoryItem.key.id}')]]"/>
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
                                                             </label>
                                                         </div>
                                                         <div class="col" style="margin-top: 6px;">
-                                                            <button id="global_remove_btn_${categoryItem.key.id}"
-                                                                    onclick="deleteSelectedItems('${categoryItem.key.id}');"
+                                                            <button id="global_remove_btn_[[${categoryItem.key.id}]]"
+                                                                    onclick="deleteSelectedItems('[[${categoryItem.key.id}]]');"
                                                                     class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
                                                                     type="button" disabled>
                                                                 <i class="material-icons">delete_outline</i>
@@ -166,7 +165,7 @@
                                                         </div>
                                                     </div>
                                             <div class="col">
-                                                <button onclick='clearUpdateItemDialog();showUpdateItemDialog(${categoryItem.key});'
+                                                <button onclick='clearUpdateItemDialog();showUpdateItemDialog([[${categoryItem.key}]]);'
                                                         class="btn btn-fill btn-info"
                                                         style="float: right;"
                                                         data-toggle="modal"
@@ -176,11 +175,11 @@
                                             </div>
 
                                         <table id="items_table_view" class="table">
-                                                <tr th:each="item: ${categoryItem.value}" id="item_${item.id}">
+                                                <tr th:each="item: ${categoryItem.value}" id="item_[[${item.id}]]">
                                                     <td>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="${item.id}" onchange="itemCheckboxChannged('${categoryItem.key.id}');">
+                                                                <input class="form-check-input" type="checkbox" value="[[${item.id}]]" onchange="itemCheckboxChannged('[[${categoryItem.key.id}]]');">
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
@@ -192,7 +191,7 @@
                                                             <i class="material-icons m-3" style="vertical-align: middle;color: #a4acad52;">image_not_supported</i>
                                                         </th:if>
                                                         <th:if test="${item.titlePicture != null}">
-                                                            <img id="item_title_picture_${item.id}" style="height: 50px; vertical-align: middle;" class="rounded ml-2 mr-2 mt-2 mb-2" src='${pageContext.request.contextPath}${item.titlePicture}'/>
+                                                            <img id="item_title_picture_[[${item.id}]]" style="height: 50px; vertical-align: middle;" class="rounded ml-2 mr-2 mt-2 mb-2" src='[[${item.titlePicture}]]'/>
                                                         </th:if>
                                                     </td>
                                                     <!--
@@ -365,7 +364,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="container jcrop-ux-no-outline">
-                            <img id="input_crop_image" width="500" src="${pageContext.request.contextPath}/assets/img/crop_no_image.png" class="rounded"/>
+                            <img id="input_crop_image" width="500" src="/assets/img/crop_no_image.png" class="rounded"/>
                         </div>
                     </div>
                 </div>
@@ -378,12 +377,6 @@
     </div>
 
     <script>
-
-  $(document).ready(function() {
-    <c:if test="${categoryItems.size() > 0}">
-      $('#${categoryItems.keySet().toArray()[0].id} a').click();
-    </c:if>
-  });
 
   const BASE_URL_BACKEND = 'http://localhost:8080'; //base url
 
@@ -690,9 +683,9 @@
 
   function updateCategoryRequest( formData, updateBtn ){
     $.ajax({
-            url: '${pageContext.request.contextPath}/items/create/category',
+            url: '/items/create/category',
             type: 'POST',
-            headers: { "${_csrf.headerName}" : "${_csrf.token}" },
+            headers: { "[[${_csrf.headerName}]]" : "[[${_csrf.token}]]" },
             data: formData,
             contentType: 'multipart/form-data',
             processData : false, // prevent jQuery from automatically
@@ -817,10 +810,10 @@
 
   function updateItemRequest( formData ) {
     $.ajax({
-        url: '${pageContext.request.contextPath}/items/create',
+        url: '/items/create',
         type: 'POST',
         data: formData,
-        headers: { "${_csrf.headerName}" : "${_csrf.token}" },
+        headers: { "[[${_csrf.headerName}]]" : "[[${_csrf.token}]]" },
         contentType: 'multipart/form-data',
         processData : false, // prevent jQuery from automatically
         contentType : false, // transforming the data into a query string
