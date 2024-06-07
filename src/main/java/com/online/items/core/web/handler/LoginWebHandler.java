@@ -8,36 +8,24 @@
 
 package com.online.items.core.web.handler;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.reactive.result.view.CsrfRequestDataValueProcessor;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
 @RestController
+@RequestMapping("/auth")
 public class LoginWebHandler {
 
-    @Autowired
-    public CookieCsrfTokenRepository csrfTokenRepository;
-
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public ModelAndView loginForm(
             HttpServletRequest request,
             @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout
-    ){
+    ) {
         ModelAndView view = new ModelAndView("login");
-
-        CsrfToken csrfToken = csrfTokenRepository.loadToken( request );
-
-        if (csrfToken != null) {
-            view.addObject( CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, csrfToken );
-        }
 
         if (error != null) {
             view.addObject("error", "Invalid username and password!");
@@ -48,6 +36,11 @@ public class LoginWebHandler {
         }
 
         return view;
+    }
+
+    @GetMapping("/success")
+    public ModelAndView authSuccess() {
+        return new ModelAndView("personal/success");
     }
 
 }

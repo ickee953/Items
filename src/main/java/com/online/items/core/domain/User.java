@@ -41,7 +41,7 @@ public class User extends AbstractDocument implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
         getRoles().forEach((role) -> {
-            roles.add(new SimpleGrantedAuthority(role.getName()));
+            roles.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
         });
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);

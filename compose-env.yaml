@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  db-items:
+    image: mongo:4.4
+    restart: always
+    ports:
+      - 27017:27017
