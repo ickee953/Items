@@ -1,10 +1,17 @@
 package com.online.items.core.dto;
 
+import com.online.items.core.domain.Role;
+
 public class RoleDto {
     private String id;
     private String name;
 
     public RoleDto() {
+    }
+
+    public RoleDto( Role role ) {
+        this.id     = role.getId();
+        this.name   = role.getName();
     }
 
     public RoleDto(String id, String name) {

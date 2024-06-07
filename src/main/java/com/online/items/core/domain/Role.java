@@ -8,7 +8,7 @@
 
 package com.online.items.core.domain;
 
-import com.online.items.core.web.model.RoleModel;
+import com.online.items.core.dto.RoleDto;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,9 +27,9 @@ public class Role extends AbstractDocument {
         this.name = name;
     }
 
-    public Role( RoleModel model ) {
-        this.id     = model.getId();
-        this.name   = model.getName();
+    public Role( RoleDto dto ) {
+        this.id     = dto.getId();
+        this.name   = dto.getName();
     }
 
     public String getName() {

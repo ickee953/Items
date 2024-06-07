@@ -8,15 +8,14 @@
 
 package com.online.items.core.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
-
 @Document( collection = "category")
 public class ItemCategory extends AbstractDocument {
-    @NotNull(message = "is required")
+    @NotBlank(message = "is required")
     @NotEmpty
     @Indexed( unique = true )
     private String name;

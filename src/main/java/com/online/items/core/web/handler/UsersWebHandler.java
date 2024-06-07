@@ -14,8 +14,8 @@ import com.online.items.core.dto.UserDto;
 import com.online.items.core.utils.BindingError;
 import com.online.items.core.web.exception.ItemCreationException;
 import com.online.items.core.web.exception.UnknownIdentifierException;
-import com.online.items.core.web.model.UserModel;
 import com.online.items.core.service.*;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import javax.validation.Valid;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,7 +62,7 @@ public class UsersWebHandler {
                         user.getId(),
                         user.getEmailAddress().toString(),
                         user.getCreationDate(),
-                        user.getRoles().stream().map(role -> {
+                        user.getRoles() == null ? null : user.getRoles().stream().map(role -> {
                             return new RoleDto(role.getId(), role.getName());
                         }).collect(Collectors.toSet()),
                         user.getAvatar()
@@ -77,9 +76,9 @@ public class UsersWebHandler {
             value = "/update"
     )
     public ResponseEntity<?> update(
-        @RequestPart( value = "user", required = true ) @Valid UserModel item,
-        BindingResult bindingResult,
-        @RequestPart( value = "avatar", required = false ) MultipartFile avatar
+            @RequestPart( value = "user", required = true ) @Valid UserDto item, BindingResult bindingResult,
+            @RequestPart( value = "avatar", required = false ) MultipartFile avatar,
+            @RequestPart( value = "password", required = false ) String password
     ) throws ItemCreationException {
         if( bindingResult.hasErrors() ){
 
@@ -96,7 +95,9 @@ public class UsersWebHandler {
         } else {
             User updatedUser = null;
             try {
-                updatedUser = service.update( new User(item) );
+                updatedUser = service.update(
+                        new User().fromDto(item).setPassword(password)
+                );
             } catch( DuplicateKeyException e ){
                 e.printStackTrace();
                 String msg = new StringBuilder("User: ")
@@ -114,13 +115,15 @@ public class UsersWebHandler {
                     );
 
                     item.setAvatar( uploadedFilename == null ? "" : "/picture/" + uploadedFilename );
-                    service.update( new User(item) );
+                    service.update(
+                            new User().fromDto(item).setPassword(password)
+                    );
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            return new ResponseEntity<>( new UserModel(updatedUser), HttpStatus.CREATED );
+            return new ResponseEntity<>( new UserDto(updatedUser), HttpStatus.CREATED );
         }
     }
 

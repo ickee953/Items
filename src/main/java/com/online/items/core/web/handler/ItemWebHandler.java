@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -148,7 +147,7 @@ public class ItemWebHandler {
             value = "/create"
     )
     public ResponseEntity<Object> create(
-            @RequestPart( value = "item", required = true ) @Valid Item item,
+            @RequestPart( value = "item", required = true ) Item item,
             BindingResult bindingResult,
             @RequestPart( value = "titlePicture", required = false ) MultipartFile titlePicture
     ) throws ItemCreationException {

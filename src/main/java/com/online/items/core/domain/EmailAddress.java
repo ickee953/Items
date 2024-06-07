@@ -72,11 +72,10 @@ public final class EmailAddress {
             return true;
         }
 
-        if (!(obj instanceof EmailAddress)) {
+        if (!(obj instanceof EmailAddress that)) {
             return false;
         }
 
-        EmailAddress that = (EmailAddress) obj;
         return this.value.equals(that.value);
     }
 

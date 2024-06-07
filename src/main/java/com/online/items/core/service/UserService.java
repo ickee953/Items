@@ -12,9 +12,12 @@ import com.online.items.core.domain.EmailAddress;
 import com.online.items.core.domain.User;
 import com.online.items.core.repository.UserRepository;
 import com.online.items.core.web.exception.UnknownIdentifierException;
+import com.online.items.core.web.exception.UserAlreadyExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,14 +45,29 @@ public class UserService {
             LOGGER.error( msg );
             throw new NullPointerException( msg );
         }
-        Optional<User> o = repository.findById( user.getId() );
-        if( o.isPresent() ){
-            User existedUser = o.get();
-            user.setPassword( existedUser.getPassword() );
-            user.setCreationDate( existedUser.getCreationDate() );
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode( user.getPassword() );
+
+        if( user.getId() == null )
+            return repository.save( new User()
+                    .setPassword(encodedPassword)
+                    .setEmailAddress(user.getEmailAddress())
+                    .setRoles(user.getRoles())
+            );
+
+        Optional<User> existingUser = repository.findById(user.getId());
+        if(  existingUser.isPresent() ) {
+
+            existingUser.get().setPassword(encodedPassword);
+            existingUser.get().setEmailAddress(user.getEmailAddress());
+            existingUser.get().setRoles(user.getRoles());
+
+            return repository.save(existingUser.get());
         }
 
-        return repository.save( user );
+        return null;
+
     }
 
     public List<User> all(){

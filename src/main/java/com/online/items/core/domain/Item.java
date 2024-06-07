@@ -8,13 +8,13 @@
 
 package com.online.items.core.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.Assert;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -25,23 +25,23 @@ import java.math.BigDecimal;
 @Document( collection = "item" )
 public class Item extends AbstractDocument {
 
-    @NotNull(message = "is required")
+    @NotBlank(message = "is required")
     @NotEmpty
     private String      title;
 
     private String      titlePicture;
 
-    @NotNull(message = "is required")
+    @NotBlank(message = "is required")
     @NotEmpty
     private String      description;
 
     private String      descriptionShort;
 
-    @NotNull(message = "is required")
+    @NotBlank(message = "is required")
     @Min(value = 0, message = "price must be more than 0")
     private BigDecimal  price;
 
-    @Min(0)
+    @Min(value = 0)
     private Integer     viewCount;
     private Rating      rating;
 

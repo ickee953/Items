@@ -8,8 +8,8 @@
 
 package com.online.items.core.domain;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 //@Document
 public class Rating {

@@ -255,7 +255,7 @@
   var updateItemBtn        = document.getElementById("btn_update_item");
 
   var inputUpdateId               = document.getElementById("update_item_id");
-  var inputUpdateemail            = document.getElementById("update_email");
+  var inputUpdateEmail            = document.getElementById("update_email");
   var inputUpdatePassword         = document.getElementById("update_password");
   var inputUpdatePasswordConfirm  = document.getElementById("update_password_confirm");
 
@@ -264,11 +264,11 @@
     $(inputUpdateId).val('');
 
     //clear item fields
-    $(inputUpdateemail).val('');
+    $(inputUpdateEmail).val('');
     $(inputUpdatePassword).val('');
     $(inputUpdatePasswordConfirm).val('');
 
-    $(inputUpdateemail).parent('div').removeClass('is-filled');
+    $(inputUpdateEmail).parent('div').removeClass('is-filled');
 
     //clear authorities
     $('#update_user_auth div')[0].innerHTML = '';
@@ -277,9 +277,9 @@
 
   function fillUpdateItemDialog(item){
     $(inputUpdateId).val(item["id"]);
-    $(inputUpdateemail).val(item["email"]);
+    $(inputUpdateEmail).val(item["email"]);
 
-    $(inputUpdateemail).parent('div').addClass('is-filled');
+    $(inputUpdateEmail).parent('div').addClass('is-filled');
 
     //fill user authorities
     for( var i = 0; i < item["roles"].length; i++ ){
@@ -295,7 +295,7 @@
     } else {
       item['id'] = $(inputUpdateId).val();
     }
-    item['email']  = $(inputUpdateemail).val();
+    item['email']  = $(inputUpdateEmail).val();
     item['roles']  = updateUserRoles;
 
     //check for email not empty
@@ -320,8 +320,6 @@
       return;
     }
 
-    item['password']  = $(inputUpdatePassword).val();
-
     let button = $(this);
     button.prop("disabled", true);
 
@@ -329,6 +327,10 @@
     formData.append("user", new Blob([JSON.stringify(item)], {
         type: 'application/json'
     }));
+
+    if( $(inputUpdatePassword) != '' && $(inputUpdatePassword).val() == $(inputUpdatePasswordConfirm).val() ) {
+        formData.append("password", $(inputUpdatePassword).val());
+    }
 
     $.ajax({
       url: '/users/update',
@@ -346,9 +348,20 @@
         //refresh page
         location.reload();
       },
-      error: function (errors) {
-        console.log(errors.statusText+"\n");
+      error: function (err) {
         button.prop("disabled", false);
+        if( err.status == 400 ){
+            //show error message
+            for( i = 0; i < err.responseJSON.length; i++ ){
+              $("#update_"+err.responseJSON[i].field).val("");
+              $("#update_"+err.responseJSON[i].field).prop('placeholder', err.responseJSON[i].message);
+              $("#update_"+err.responseJSON[i].field).parent($('.form-group')).addClass('is-focused');
+
+              console.log("@"+err.responseJSON[i].field+":"+err.responseJSON[i].message+"\n");
+              }
+        } else {
+            console.log(JSON.stringify(err));
+        }
       }
     });
   }
