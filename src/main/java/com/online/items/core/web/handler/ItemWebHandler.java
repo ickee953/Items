@@ -48,7 +48,7 @@ public class ItemWebHandler {
 
     @RequestMapping
     public ModelAndView getView(){
-        ModelAndView view = new ModelAndView("/personal/items");
+        ModelAndView view = new ModelAndView("personal/items");
 
         List<Item> items = itemService.readAll();
 

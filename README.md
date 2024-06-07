@@ -2,9 +2,9 @@
 
 1. Create new project from pom.xml<br>
 2. Execute maven target 'package'<br>
-3. Place /target/items.war into Tomcat 'webapps' path<br>
-4. Run mongoDB server. Install mongo db tools from http://www.mongodb.org/ and type in console:<br>
-  mongod --dbpath ~/data/db<br>
+3. Use Docker with docker-compose and compose-env.yaml to run mongoDB server container:<br>
+	run from terminal command: docker-compose -f compose-env.yaml up<br>
+3. Run java -jar target/items-1.0-SNAPSHOT.jar<br>
 3. Open page http://localhost:8080/items in you web browser<br><br>
 
 You can also try it without building at https://5.8.10.225/items with login/pass: test@domain.com/123
