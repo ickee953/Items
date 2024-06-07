@@ -107,34 +107,34 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p class="card-category">
-                        <ul th:each="categoryItem: ${categoryItems}" class="nav nav-tabs" data-tabs="tabs">
-                                <li id="'[[${categoryItem.key.id}]]'" class="nav-item">
-                                    <a th:text="${categoryItem.key.name}" class="btn btn-sm btn-link" th:href="@{#tab_{id}(id=${categoryItem.key.id})}" data-toggle="tab">
-                                        <div class="ripple-container"></div>
-                                    </a>
-                                </li>
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                            <li th:each="categoryItem: ${categoryItems}"  th:id="${categoryItem.key.id}" class="nav-item">
+                                <a th:text="${categoryItem.key.name}" class="btn btn-sm btn-link" th:href="@{#tab_{id}(id=${categoryItem.key.id})}" data-toggle="tab">
+                                    <div class="ripple-container"></div>
+                                </a>
+                            </li>
                         </ul>
                         </p>
                         <div id="items_table" class="card">
                             <div class="card-body" style="min-height: 300px;">
-                                <div th:each="categoryItem: ${categoryItems}" class="tab-content">
-                                        <div th:switch="${categoryItem.value.size()}" class="tab-pane" id="tab_${categoryItem.key.id}">
+                                <div class="tab-content">
+                                        <div th:each="categoryItem: ${categoryItems}" th:switch="${categoryItem.value.size()}" class="tab-pane" th:id="'tab_' + ${categoryItem.key.id}">
                                             <!-- table view content -->
                                                     <div th:case="0" class="row">
                                                         <div class="col">
-                                                            <button onclick="deleteItemCategory('${categoryItem.key.id}');" class="btn btn-link">
+                                                            <button th:onclick="deleteItemCategory('[[${categoryItem.key.id}]]');" class="btn btn-link">
                                                                 <i class="material-icons">delete_outline</i> Delete empty category
                                                             </button>
                                                         </div>
                                                     </div>
 
                                                     <div th:case="*" class="row">
-                                                        <div id="global_check_${categoryItem.key.id}"
+                                                        <div th:id="'global_check_'+${categoryItem.key.id}"
                                                              class="col-md-1 form-check"
                                                              style="padding: 0px 24px;">
                                                             <label class="form-check-label">
                                                                 <input class="form-check-input" type="checkbox" value=""
-                                                                       onchange="selectAllItems('[[${categoryItem.key.id}')]]"/>
+                                                                       th:onchange="selectAllItems('[[${categoryItem.key.id}]]')"/>
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
@@ -165,7 +165,7 @@
                                                         </div>
                                                     </div>
                                             <div class="col">
-                                                <button onclick='clearUpdateItemDialog();showUpdateItemDialog([[${categoryItem.key}]]);'
+                                                <button th:onclick='clearUpdateItemDialog();showUpdateItemDialog([[${categoryItem.key}]]);'
                                                         class="btn btn-fill btn-info"
                                                         style="float: right;"
                                                         data-toggle="modal"
@@ -175,7 +175,7 @@
                                             </div>
 
                                         <table id="items_table_view" class="table">
-                                                <tr th:each="item: ${categoryItem.value}" id="item_[[${item.id}]]">
+                                                <tr th:each="item: ${categoryItem.value}" th:id="'item_' + ${item.id}">
                                                     <td>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
@@ -186,33 +186,28 @@
                                                             </label>
                                                         </div>
                                                     </td>
-                                                    <td style="text-align: center;">
-                                                        <th:if test='${item.titlePicture == null}'>
-                                                            <i class="material-icons m-3" style="vertical-align: middle;color: #a4acad52;">image_not_supported</i>
-                                                        </th:if>
-                                                        <th:if test="${item.titlePicture != null}">
-                                                            <img id="item_title_picture_[[${item.id}]]" style="height: 50px; vertical-align: middle;" class="rounded ml-2 mr-2 mt-2 mb-2" src='[[${item.titlePicture}]]'/>
-                                                        </th:if>
+                                                    <td th:switch="${item.titlePicture}" style="text-align: center;">
+                                                        <i th:case="null" class="material-icons m-3" style="vertical-align: middle;color: #a4acad52;">image_not_supported</i>
+                                                        <img th:case="*" th:id="'item_title_picture_' + ${item.id}" style="height: 50px; vertical-align: middle;" class="rounded ml-2 mr-2 mt-2 mb-2" th:src='${item.titlePicture}'/>
                                                     </td>
                                                     <!--
                                                     <td class="text-primary">
                                                       ₽<c:out value="${item.price}"/>
                                                     </td>
                                                     -->
-                                                    <td style="width: 100%;">
-                                                        <th:out value="${item.descriptionShort}"/>
+                                                    <td th:text="${item.descriptionShort}" style="width: 100%;">
                                                     </td>
                                                     <td class="td-actions text-right">
                                                         <div style="text-align: right; width: 60px;">
                                                             <button type="button"
-                                                                    onclick='fillUpdateItemDialog([[${item}]]);'
+                                                                    th:onclick="fillUpdateItemDialog([[${item}]]);"
                                                                     class="btn btn-primary btn-round btn-link btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#update_item_dialog">
                                                                 <i class="material-icons">edit</i>
                                                             </button>
                                                             <button type="button"
-                                                                    onclick="confirmAndRemoveItem('[[${item.id}]]', '[[${categoryItem.key.id}]]');"
+                                                                    th:onclick="confirmAndRemoveItem('[[${item.id}]]', '[[${categoryItem.key.id}]]');"
                                                                     class="btn btn-danger btn-round btn-link btn-sm">
                                                                 <i class="material-icons">close</i>
                                                             </button>
@@ -258,12 +253,9 @@
                                         <input id="update_item_category_name" type="text" class="is-filled form-control dropdown-toggle" data-toggle="dropdown" disabled/>
                                         <input id="update_item_category_id" type="hidden"/>
                                         <div id="dialog_category_drop_down" class="dropdown-menu">
-                                            <th:forEach var="categoryItem" items="${categoryItems}">
-                                                <a href="#" onclick="$('#update_item_category_name').val('${categoryItem.key.name}'), $('#update_item_category_id').val('${categoryItem.key.id}')" class="dropdown-item">
-                                                    <th:out value="${categoryItem.key.name}"/>
-                                                </a>
-                                            </th:forEach>
-                                        </div>
+                                            <a  th:each="categoryItem: ${categoryItems}" th:text="${categoryItem.key.name}" href="#" th:onclick="$('#update_item_category_name').val('[[${categoryItem.key.name}]]'), $('#update_item_category_id').val('[[${categoryItem.key.id}]]')" class="dropdown-item">
+                                            </a>
+                                        </div>0.09
                                     </div>
                                 </div>
                             </div>

@@ -154,8 +154,8 @@
                                                 </td>
                                                 <td th:switch="${item.avatar}" style="text-align: center;width: 50px; height: 50px;">
                                                         <i th:case="null" class="material-icons" style="vertical-align: middle;color: #a4acad52;">account_circle</i>
-                                                        <img th:case="*" id="item_title_picture_${item.id}" style="width: 50px; height: 50px;"
-                                                             class="rounded-circle ml-2 mr-2 mt-2 mb-2" src='${item.avatar}'/>
+                                                        <img th:case="*" th:id="'item_title_picture_' + ${item.id}" style="width: 50px; height: 50px;"
+                                                             class="rounded-circle ml-2 mr-2 mt-2 mb-2" th:src='${item.avatar}'/>
 
                                                 </td>
                                                 <td th:text="${item.email}" style="width: 100%;">
