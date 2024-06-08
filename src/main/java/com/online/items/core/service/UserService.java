@@ -11,8 +11,8 @@ package com.online.items.core.service;
 import com.online.items.core.domain.EmailAddress;
 import com.online.items.core.domain.User;
 import com.online.items.core.repository.UserRepository;
-import com.online.items.core.web.exception.UnknownIdentifierException;
-import com.online.items.core.web.exception.UserAlreadyExistException;
+import com.online.items.core.utils.exception.UnknownIdentifierException;
+import com.online.items.core.utils.exception.UserAlreadyExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,12 @@ import java.util.Optional;
 public class UserService {
     private static Logger LOGGER = LoggerFactory.getLogger( UserService.class );
 
+    private final UserRepository repository;
+
     @Autowired
-    private UserRepository repository;
+    public UserService( UserRepository repository ) {
+        this.repository = repository;
+    }
 
     public User getByEmail(EmailAddress email ){
 

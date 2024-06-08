@@ -23,8 +23,12 @@ import java.util.Optional;
 @Service
 public class ItemService {
 
+    private final ItemRepository repository;
+
     @Autowired
-    private ItemRepository repository;
+    public ItemService( ItemRepository repository ) {
+        this.repository = repository;
+    }
 
     public Item update( Item item ) { return repository.save( item ); }
 

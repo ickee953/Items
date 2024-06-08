@@ -6,13 +6,14 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, November 2021
  */
 
-package com.online.items.core.web.model;
+package com.online.items.core.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.online.items.core.domain.AbstractDocument;
 
-public abstract class AbstractModel implements Comparable<AbstractModel> {
+@Deprecated
+public abstract class AbstractDto implements Comparable<AbstractDto> {
 
     protected String id;
 
@@ -55,7 +56,7 @@ public abstract class AbstractModel implements Comparable<AbstractModel> {
     }
 
     @Override
-    public int compareTo( AbstractModel o) {
+    public int compareTo( AbstractDto o) {
         return this.id.compareTo( o.getId() );
     }
 }

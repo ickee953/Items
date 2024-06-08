@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.web.handler;
+package com.online.items.core.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping
-public class MainWebHandler {
-    private static Logger LOGGER = LoggerFactory.getLogger(MainWebHandler.class);
+public class MainController {
+    private static Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping
     public ModelAndView get(){

@@ -140,8 +140,7 @@
                                         </div>
                                     </div>
                                     <table id="items_table_view" class="table">
-
-                                            <tr th:each="item: ${users}" id="item_${item.id}">
+                                            <tr th:each="item: ${users}" th:id="'item_' + ${item.id}">
                                                 <td>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
@@ -168,7 +167,7 @@
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         <button type="button"
-                                                                th:onclick="confirmAndRemoveItem('[[${item.id}]]');"
+                                                                th:onclick="confirmAndRemoveItem([[${item.id}]]);"
                                                                 class="btn btn-danger btn-round btn-link btn-sm">
                                                             <i class="material-icons">close</i>
                                                         </button>
@@ -430,9 +429,9 @@
 
   function removeItem( item_id ){
     $.ajax({
-      url: '${pageContext.request.contextPath}/users/remove/'+item_id,
+      url: '/users/remove/'+item_id,
       type: 'DELETE',
-      headers: { "${_csrf.headerName}" : "${_csrf.token}" },
+      headers: { "[[${_csrf.headerName}]]" : "[[${_csrf.token}]]" },
       success: function (data) {
         console.log('Item with id: '+data+' deleted successful.');
 

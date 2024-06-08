@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.web.handler;
+package com.online.items.core.controller;
 
 import com.online.items.core.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping( "/picture" )
-public class PictureWebHandler {
+public class PictureController {
 
     @Autowired
     private FileService fileService;

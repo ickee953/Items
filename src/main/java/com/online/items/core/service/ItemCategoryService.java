@@ -18,8 +18,13 @@ import java.util.Optional;
 
 @Service
 public class ItemCategoryService {
+
+    private final ItemCategoryRepository itemCategoryRepository;
+
     @Autowired
-    private ItemCategoryRepository itemCategoryRepository;
+    public ItemCategoryService(ItemCategoryRepository itemCategoryRepository) {
+        this.itemCategoryRepository = itemCategoryRepository;
+    }
 
     public List<ItemCategory> readAll(){
         return itemCategoryRepository.findAll();

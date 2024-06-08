@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.web.handler;
+package com.online.items.core.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/auth")
-public class LoginWebHandler {
+public class LoginController {
 
     @GetMapping("/login")
     public ModelAndView loginForm(

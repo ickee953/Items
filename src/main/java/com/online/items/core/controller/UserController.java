@@ -6,14 +6,14 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.web.handler;
+package com.online.items.core.controller;
 
 import com.online.items.core.domain.*;
 import com.online.items.core.dto.RoleDto;
 import com.online.items.core.dto.UserDto;
 import com.online.items.core.utils.BindingError;
-import com.online.items.core.web.exception.ItemCreationException;
-import com.online.items.core.web.exception.UnknownIdentifierException;
+import com.online.items.core.utils.exception.ItemCreationException;
+import com.online.items.core.utils.exception.UnknownIdentifierException;
 import com.online.items.core.service.*;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -35,9 +35,9 @@ import static org.springframework.http.MediaType.*;
 
 @Controller
 @RequestMapping("/users")
-public class UsersWebHandler {
+public class UserController {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(UsersWebHandler.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService service;

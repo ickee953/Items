@@ -6,34 +6,34 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, November 2021
  */
 
-package com.online.items.core.web.model;
+package com.online.items.core.dto;
 
 import com.online.items.core.domain.Item;
 
 import java.math.BigDecimal;
 
-public class ItemListModel extends AbstractModel {
+public class ItemDto extends AbstractDto {
 
     private String              title;
     private String              titlePicUrl;
     private String              descriptionShort;
     private BigDecimal          price;
-    private ItemCategoryModel   category;
+    private ItemCategoryDto category;
     private Integer             viewCount;
-    private RatingModel         rating;
+    private RatingDto rating;
 
 
-    public ItemListModel() {
+    public ItemDto() {
     }
 
-    public ItemListModel(
+    public ItemDto(
             String id,
             String title,
             String descriptionShort,
             BigDecimal price,
-            ItemCategoryModel category,
+            ItemCategoryDto category,
             Integer viewCount,
-            RatingModel rating
+            RatingDto rating
     ) {
         this.id = id;
         this.title = title;
@@ -44,15 +44,15 @@ public class ItemListModel extends AbstractModel {
         this.rating = rating;
     }
 
-    public ItemListModel(Item item) {
+    public ItemDto(Item item) {
         this.id                 = item.getId();
         this.title              = item.getTitle();
         this.titlePicUrl        = item.getTitlePicture();
         this.descriptionShort   = item.getDescriptionShort();
         this.price              = item.getPrice();
-        this.category           = new ItemCategoryModel(item.getCategory());
+        this.category           = new ItemCategoryDto(item.getCategory());
         this.viewCount          = item.getViewCount();
-        this.rating             = new RatingModel( item.getRating() );
+        this.rating             = new RatingDto( item.getRating() );
     }
 
     public String getTitle() {
@@ -87,11 +87,11 @@ public class ItemListModel extends AbstractModel {
         this.price = price;
     }
 
-    public ItemCategoryModel getCategory() {
+    public ItemCategoryDto getCategory() {
         return category;
     }
 
-    public void setCategory(ItemCategoryModel category) {
+    public void setCategory(ItemCategoryDto category) {
         this.category = category;
     }
 
@@ -103,11 +103,11 @@ public class ItemListModel extends AbstractModel {
         this.viewCount = viewCount;
     }
 
-    public RatingModel getRating() {
+    public RatingDto getRating() {
         return rating;
     }
 
-    public void setRating(RatingModel rating) {
+    public void setRating(RatingDto rating) {
         this.rating = rating;
     }
 }

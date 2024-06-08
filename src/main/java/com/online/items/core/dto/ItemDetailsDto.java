@@ -6,26 +6,26 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, November 2021
  */
 
-package com.online.items.core.web.model;
+package com.online.items.core.dto;
 
 import com.online.items.core.domain.Item;
 
-public class ItemDetailsModel extends AbstractModel {
+public class ItemDetailsDto extends AbstractDto {
 
     private String      description;
     private int         viewCount;
-    private RatingModel rating;
+    private RatingDto rating;
 
-    public ItemDetailsModel() {
+    public ItemDetailsDto() {
     }
 
-    public ItemDetailsModel( Item item ) {
+    public ItemDetailsDto(Item item ) {
         this.description = item.getDescription();
         this.viewCount = item.getViewCount();
-        this.rating = new RatingModel( item.getRating() );
+        this.rating = new RatingDto( item.getRating() );
     }
 
-    public ItemDetailsModel(String description) {
+    public ItemDetailsDto(String description) {
         this.description = description;
     }
 
@@ -45,11 +45,11 @@ public class ItemDetailsModel extends AbstractModel {
         this.viewCount = viewCount;
     }
 
-    public RatingModel getRating() {
+    public RatingDto getRating() {
         return rating;
     }
 
-    public void setRating(RatingModel rating) {
+    public void setRating(RatingDto rating) {
         this.rating = rating;
     }
 }

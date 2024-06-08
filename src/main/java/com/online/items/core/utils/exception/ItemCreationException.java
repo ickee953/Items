@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, November 2021
  */
 
-package com.online.items.core.web.exception;
+package com.online.items.core.utils.exception;
 
 public class ItemCreationException extends Exception {
 

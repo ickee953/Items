@@ -22,8 +22,12 @@ import java.util.Set;
 public class RoleService {
     private static Logger LOGGER = LoggerFactory.getLogger( RoleService.class );
 
+    private final RoleRepository repository;
+
     @Autowired
-    private RoleRepository repository;
+    public RoleService( RoleRepository repository ) {
+        this.repository = repository;
+    }
 
     public Role getByName( String name ){
         return repository.findByName( name );

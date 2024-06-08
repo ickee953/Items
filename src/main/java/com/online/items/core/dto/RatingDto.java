@@ -6,21 +6,21 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.web.model;
+package com.online.items.core.dto;
 
 import com.online.items.core.domain.Rating;
 
-public class RatingModel extends AbstractModel {
+public class RatingDto extends AbstractDto {
     private int oneStarCount;
     private int twoStarCount;
     private int threeStarCount;
     private int fourStarCount;
     private int fiveStarCount;
 
-    public RatingModel() {
+    public RatingDto() {
     }
 
-    public RatingModel(int oneStarCount, int twoStarCount, int threeStarCount, int fourStarCount, int fiveStarCount) {
+    public RatingDto(int oneStarCount, int twoStarCount, int threeStarCount, int fourStarCount, int fiveStarCount) {
         this.oneStarCount   = oneStarCount;
         this.twoStarCount   = twoStarCount;
         this.threeStarCount = threeStarCount;
@@ -28,7 +28,7 @@ public class RatingModel extends AbstractModel {
         this.fiveStarCount  = fiveStarCount;
     }
 
-    public RatingModel(Rating rating) {
+    public RatingDto(Rating rating) {
         this.oneStarCount   = rating.getOneStarCount();
         this.twoStarCount   = rating.getTwoStarCount();
         this.threeStarCount = rating.getThreeStarCount();

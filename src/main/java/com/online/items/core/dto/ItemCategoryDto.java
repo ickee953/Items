@@ -6,22 +6,22 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, November 2021
  */
 
-package com.online.items.core.web.model;
+package com.online.items.core.dto;
 
 import com.online.items.core.domain.ItemCategory;
 
-public class ItemCategoryModel extends AbstractModel {
+public class ItemCategoryDto extends AbstractDto {
     private String name;
 
-    public ItemCategoryModel() {
+    public ItemCategoryDto() {
     }
 
-    public ItemCategoryModel(String id, String name) {
+    public ItemCategoryDto(String id, String name) {
         this.id     = id;
         this.name   = name;
     }
 
-    public ItemCategoryModel(ItemCategory category) {
+    public ItemCategoryDto(ItemCategory category) {
         this( category.getId(), category.getName() );
     }
 

@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.web.exception;
+package com.online.items.core.utils.exception;
 
 public class UnknownIdentifierException extends Exception {
     protected String identifier;

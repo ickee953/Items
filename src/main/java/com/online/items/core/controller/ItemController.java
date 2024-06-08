@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, November 2021
  */
 
-package com.online.items.core.web.handler;
+package com.online.items.core.controller;
 
 import com.mongodb.DuplicateKeyException;
 import com.online.items.core.domain.AbstractDocument;
@@ -17,10 +17,10 @@ import com.online.items.core.service.FileService;
 import com.online.items.core.service.ItemCategoryService;
 import com.online.items.core.service.ItemService;
 import com.online.items.core.utils.BindingError;
-import com.online.items.core.web.exception.ItemCreationException;
-import com.online.items.core.web.exception.UnknownIdentifierException;
-import com.online.items.core.web.model.ItemDetailsModel;
-import com.online.items.core.web.model.ItemListModel;
+import com.online.items.core.utils.exception.ItemCreationException;
+import com.online.items.core.utils.exception.UnknownIdentifierException;
+import com.online.items.core.dto.ItemDetailsDto;
+import com.online.items.core.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.BindingResult;
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/items")
-public class ItemWebHandler {
+public class ItemController {
 
     @Autowired
     private ItemService itemService;
@@ -78,11 +78,11 @@ public class ItemWebHandler {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<ItemListModel>> list(){
+    public ResponseEntity<List<ItemDto>> list(){
         List<Item> items = itemService.readAll();
 
-        List<ItemListModel> ret = items.stream().map(
-                item -> new ItemListModel( item )
+        List<ItemDto> ret = items.stream().map(
+                item -> new ItemDto( item )
         ).collect(Collectors.toList());
 
         return new ResponseEntity<>( ret, HttpStatus.OK );
@@ -98,13 +98,13 @@ public class ItemWebHandler {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ItemDetailsModel> details(
+    public ResponseEntity<ItemDetailsDto> details(
             @PathVariable( value = "id" ) String id
     ) throws UnknownIdentifierException {
         Optional<Item> o = itemService.readById( id );
 
         if( o.isPresent() ) {
-            ItemDetailsModel ret = new ItemDetailsModel( o.get() );
+            ItemDetailsDto ret = new ItemDetailsDto( o.get() );
 
             return new ResponseEntity<>( ret, HttpStatus.OK );
         }

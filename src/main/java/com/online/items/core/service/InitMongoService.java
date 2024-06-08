@@ -29,8 +29,12 @@ public class InitMongoService {
     public final String COLLECTION_NAME_ROLE = "role";
     public final String COLLECTION_NAME_USER = "user";
 
+    private final MongoTemplate mongo;
+
     @Autowired
-    private MongoTemplate mongo;
+    public InitMongoService(MongoTemplate mongo) {
+        this.mongo = mongo;
+    }
 
     private void initDatabase(){
         MongoCollection collectionRole = mongo.getCollection( COLLECTION_NAME_ROLE );
