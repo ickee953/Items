@@ -6,7 +6,7 @@
  * Written by Panov Vitaly <vetalpanov@gmail.com>, September 2022
  */
 
-package com.online.items.core.service;
+package com.online.items.core.security;
 
 import com.online.items.core.domain.EmailAddress;
 import com.online.items.core.domain.User;
@@ -16,8 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Service
 public class CustomMongoSecurityService implements UserDetailsService {
@@ -32,12 +30,10 @@ public class CustomMongoSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
-        Optional<User> user = userRepository.findByEmailAddress( new EmailAddress(login) );
-        if(user.isPresent()) {
-            return user.get();
-        } else {
-            throw new UsernameNotFoundException("username not found");
-        }
+        User user = userRepository.findByEmailAddress( new EmailAddress(login) ).orElseThrow(() ->
+            new UsernameNotFoundException("username not found"));
+
+        return SecurityUser.fromUser(user);
 
     }
 }
