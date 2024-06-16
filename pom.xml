@@ -36,10 +36,6 @@
     <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
     <io.version>2.11.0</io.version>
 
-    <!--  The Apache Commons FileUpload -->
-    <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-    <fileupload.version>1.4</fileupload.version>
-
     <!-- Logging -->
     <slf4j.version>2.0.12</slf4j.version>
 
@@ -106,9 +102,9 @@
     </dependency>
 
     <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>${fileupload.version}</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-fileupload2-javax</artifactId>
+      <version>2.0.0-M2</version>
     </dependency>
 
     <dependency>
