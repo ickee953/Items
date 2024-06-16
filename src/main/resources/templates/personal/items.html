@@ -129,12 +129,12 @@
                                                     </div>
 
                                                     <div th:case="*" class="row">
-                                                        <div th:id="'global_check_'+${categoryItem.key.id}"
+                                                        <div th:id="@{global_check_{id}(id=${categoryItem.key.id})}"
                                                              class="col-md-1 form-check"
                                                              style="padding: 0px 24px;">
                                                             <label class="form-check-label">
                                                                 <input class="form-check-input" type="checkbox" value=""
-                                                                       th:onchange="selectAllItems('[[${categoryItem.key.id}]]')"/>
+                                                                       th:onchange="selectAllItems([[${categoryItem.key.id}]])"/>
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
@@ -163,16 +163,16 @@
                                                                 <div class="ripple-container"></div>
                                                             </button>
                                                         </div>
+                                                        <div class="col">
+                                                            <button th:onclick='clearUpdateItemDialog();showUpdateItemDialog([[${categoryItem.key}]]);'
+                                                                    class="btn btn-fill btn-info"
+                                                                    style="float: right;"
+                                                                    data-toggle="modal"
+                                                                    data-target="#update_item_dialog">
+                                                                Add item
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                            <div class="col">
-                                                <button th:onclick='clearUpdateItemDialog();showUpdateItemDialog([[${categoryItem.key}]]);'
-                                                        class="btn btn-fill btn-info"
-                                                        style="float: right;"
-                                                        data-toggle="modal"
-                                                        data-target="#update_item_dialog">
-                                                    Add item
-                                                </button>
-                                            </div>
 
                                         <table id="items_table_view" class="table">
                                                 <tr th:each="item: ${categoryItem.value}" th:id="'item_' + ${item.id}">
@@ -1248,7 +1248,7 @@
     }
 
     function selectAllItems( category_id ){
-        $("#tab_"+category_id+" .form-check-input").each(function(i, obj){
+        $("#tab_" + category_id + " .form-check-input").each(function(i, obj){
           if( $("#global_check_"+category_id+" .form-check-input").prop('checked') ){
             $(this).prop('checked', true);
           } else {
