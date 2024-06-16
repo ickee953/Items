@@ -1,4 +1,4 @@
-package com.online.items.core;
+package com.online.items.core.conf;
 
 import com.online.items.core.domain.Role;
 import com.online.items.core.security.CustomMongoSecurityService;

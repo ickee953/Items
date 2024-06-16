@@ -1,4 +1,4 @@
-package com.online.items.core;
+package com.online.items.core.conf;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
