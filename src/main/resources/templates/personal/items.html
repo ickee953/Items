@@ -118,7 +118,7 @@
                         <div id="items_table" class="card">
                             <div class="card-body" style="min-height: 300px;">
                                 <div class="tab-content">
-                                        <div th:each="categoryItem: ${categoryItems}" th:switch="${categoryItem.value.size()}" class="tab-pane" th:id="'tab_' + ${categoryItem.key.id}">
+                                        <div th:each="categoryItem: ${categoryItems}" th:switch="${categoryItem.value.size()}" class="tab-pane" th:id="@{tab_{id}(id=${categoryItem.key.id})}">
                                             <!-- table view content -->
                                                     <div th:case="0" class="row">
                                                         <div class="col">
@@ -143,21 +143,21 @@
                                                         <div class="col" style="margin-top: 6px;">
                                                             <button id="global_remove_btn_[[${categoryItem.key.id}]]"
                                                                     onclick="deleteSelectedItems('[[${categoryItem.key.id}]]');"
-                                                                    class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
+                                                                    class="btn btn-round btn-just-icon btn-sm"
                                                                     type="button" disabled>
                                                                 <i class="material-icons">delete_outline</i>
                                                                 <div class="ripple-container"></div>
                                                             </button>
                                                             <button id="refresh_btn"
                                                                     onclick=""
-                                                                    class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
+                                                                    class="btn btn-round btn-just-icon btn-sm"
                                                                     type="button">
                                                                 <i class="material-icons">refresh</i>
                                                                 <div class="ripple-container"></div>
                                                             </button>
                                                             <button id="more_btn"
                                                                     onclick=""
-                                                                    class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
+                                                                    class="btn btn-round btn-just-icon btn-sm"
                                                                     type="button">
                                                                 <i class="material-icons">more_vert</i>
                                                                 <div class="ripple-container"></div>
@@ -179,7 +179,7 @@
                                                     <td>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="[[${item.id}]]" onchange="itemCheckboxChannged('[[${categoryItem.key.id}]]');">
+                                                                <input class="form-check-input" type="checkbox" th:value="${item.id}" th:onchange="itemCheckboxChannged([[${categoryItem.key.id}]]);">
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
@@ -197,19 +197,19 @@
                                                     -->
                                                     <td th:text="${item.descriptionShort}" style="width: 100%;">
                                                     </td>
-                                                    <td class="td-actions text-right">
-                                                        <div style="text-align: right; width: 60px;">
+                                                    <td class="td-actions text-right" style="float: right; width: max-content;">
+                                                        <div>
                                                             <button type="button"
                                                                     th:onclick="fillUpdateItemDialog([[${item}]]);"
-                                                                    class="btn btn-primary btn-round btn-link btn-sm"
+                                                                    class="btn btn-round btn-link btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#update_item_dialog">
-                                                                <i class="material-icons">edit</i>
+                                                                    <i class="material-icons">edit</i>
                                                             </button>
                                                             <button type="button"
                                                                     th:onclick="confirmAndRemoveItem([[${item.id}]], [[${categoryItem.key.id}]]);"
-                                                                    class="btn btn-danger btn-round btn-link btn-sm">
-                                                                <i class="material-icons">close</i>
+                                                                    class="btn btn-round btn-link btn-just-icon btn-sm">
+                                                                    <i class="material-icons">close</i>
                                                             </button>
                                                         </div>
                                                     </td>

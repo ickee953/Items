@@ -110,21 +110,21 @@
                                         <div class="col" style="margin-top: 6px;">
                                             <button id="global_remove_btn"
                                                     onclick="deleteSelectedItems();"
-                                                    class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
+                                                    class="btn btn-round btn-just-icon btn-sm"
                                                     type="button" disabled>
                                                 <i class="material-icons">delete_outline</i>
                                                 <div class="ripple-container"></div>
                                             </button>
                                             <button id="refresh_btn"
                                                     onclick=""
-                                                    class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
+                                                    class="btn btn-round btn-just-icon btn-sm"
                                                     type="button">
                                                 <i class="material-icons">refresh</i>
                                                 <div class="ripple-container"></div>
                                             </button>
                                             <button id="more_btn"
                                                     onclick=""
-                                                    class="btn btn-primary btn-link btn-round btn-just-icon btn-sm"
+                                                    class="btn btn-round btn-just-icon btn-sm"
                                                     type="button">
                                                 <i class="material-icons">more_vert</i>
                                                 <div class="ripple-container"></div>
@@ -161,14 +161,14 @@
                                                 </td>
                                                 <td class="td-actions text-right" style="float: right; width: 100px;">
                                                     <div>
-                                                        <button type="button" class="btn btn-primary btn-round btn-link btn-sm"
+                                                        <button type="button" class="btn btn-round btn-link btn-sm"
                                                                 th:onclick="clearUpdateItemDialog();fillUpdateItemDialog([[${item}]]);"
                                                                 data-toggle="modal" data-target="#update_item_dialog">
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         <button type="button"
                                                                 th:onclick="confirmAndRemoveItem([[${item.id}]]);"
-                                                                class="btn btn-danger btn-round btn-link btn-sm">
+                                                                class="btn btn-round btn-link btn-sm">
                                                             <i class="material-icons">close</i>
                                                         </button>
                                                     </div>
