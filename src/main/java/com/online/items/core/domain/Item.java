@@ -11,6 +11,7 @@ package com.online.items.core.domain;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.Assert;
@@ -43,6 +44,8 @@ public class Item extends AbstractDocument {
 
     @Min(value = 0)
     private Integer     viewCount;
+
+    @Version
     private Rating      rating;
 
     @DBRef
